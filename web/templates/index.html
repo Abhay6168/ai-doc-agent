@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Summary & Quiz Agent</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="dots-container">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-nav">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-brain me-2 text-gradient"></i>
+                <span class="text-gradient">AI Document Agent</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#upload">Upload</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <div class="hero-content animate-fade-in">
+                        <h1 class="hero-title mb-4">
+                            Transform Documents with 
+                            <span class="text-gradient">AI Power</span>
+                        </h1>
+                        <p class="hero-subtitle mb-4">
+                            Upload any document and get intelligent summaries and interactive quizzes 
+                            powered by advanced AI technology.
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="#upload" class="btn btn-gradient btn-lg me-3 animate-bounce">
+                                <i class="fas fa-rocket me-2"></i>Get Started
+                            </a>
+                            <a href="#features" class="btn btn-outline-light btn-lg">
+                                <i class="fas fa-info-circle me-2"></i>Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-animation">
+                        <div class="floating-card card-1">
+                            <i class="fas fa-file-text"></i>
+                            <span>PDF</span>
+                        </div>
+                        <div class="floating-card card-2">
+                            <i class="fas fa-file-word"></i>
+                            <span>DOCX</span>
+                        </div>
+                        <div class="floating-card card-3">
+                            <i class="fas fa-file-alt"></i>
+                            <span>TXT</span>
+                        </div>
+                        <div class="floating-card card-4">
+                            <i class="fab fa-markdown"></i>
+                            <span>MD</span>
+                        </div>
+                        <div class="ai-brain">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Upload Section -->
+    <section id="upload" class="upload-section py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="text-center mb-5">
+                        <h2 class="section-title">
+                            <i class="fas fa-upload text-gradient me-2"></i>
+                            Upload Your Document
+                        </h2>
+                        <p class="section-subtitle">
+                            Transform any document into insights with our AI-powered analysis
+                        </p>
+                    </div>
+
+                    <div class="glass-card upload-card">
+                        <form id="uploadForm" enctype="multipart/form-data">
+                            <!-- File Upload Area -->
+                            <div class="upload-zone" id="uploadArea">
+                                <div class="upload-icon-container">
+                                    <div class="upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <div class="upload-ripple"></div>
+                                </div>
+                                <h4 class="upload-title">Drop your document here</h4>
+                                <p class="upload-subtitle">or click to browse files</p>
+                                <div class="supported-formats">
+                                    <span class="format-badge"><i class="fas fa-file-pdf"></i> PDF</span>
+                                    <span class="format-badge"><i class="fas fa-file-word"></i> DOCX</span>
+                                    <span class="format-badge"><i class="fas fa-file-alt"></i> TXT</span>
+                                    <span class="format-badge"><i class="fab fa-markdown"></i> MD</span>
+                                </div>
+                                <input type="file" id="fileInput" name="file" class="d-none" accept=".pdf,.docx,.txt,.md" aria-label="Upload document file">
+                            </div>
+                            
+                            <!-- File Info -->
+                            <div id="fileInfo" class="file-info d-none">
+                                <div class="file-info-content">
+                                    <div class="file-icon">
+                                        <i class="fas fa-file" id="fileIcon"></i>
+                                    </div>
+                                    <div class="file-details">
+                                        <div class="file-name" id="fileName"></div>
+                                        <div class="file-size" id="fileSize"></div>
+                                    </div>
+                                    <div class="file-actions">
+                                        <button type="button" class="btn-remove" id="removeFile">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Options -->
+                            <div class="options-container">
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="option-group">
+                                            <h6 class="option-title">
+                                                <i class="fas fa-cogs me-2"></i>Generation Options
+                                            </h6>
+                                            <div class="custom-switches">
+                                                <div class="switch-item">
+                                                    <input type="checkbox" id="generateSummary" name="generate_summary" checked class="switch-input">
+                                                    <label for="generateSummary" class="switch-label">
+                                                        <span class="switch-slider"></span>
+                                                        <span class="switch-text">Generate Summary</span>
+                                                    </label>
+                                                </div>
+                                                <div class="switch-item">
+                                                    <input type="checkbox" id="generateQuiz" name="generate_quiz" checked class="switch-input">
+                                                    <label for="generateQuiz" class="switch-label">
+                                                        <span class="switch-slider"></span>
+                                                        <span class="switch-text">Generate Quiz</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="option-group">
+                                            <h6 class="option-title">
+                                                <i class="fas fa-sliders-h me-2"></i>Parameters
+                                            </h6>
+                                            <div class="custom-selects">
+                                                <div class="select-item">
+                                                    <label for="summaryType" class="select-label">Summary Type</label>
+                                                    <select class="custom-select" id="summaryType" name="summary_type">
+                                                        <option value="brief">Brief Overview</option>
+                                                        <option value="comprehensive" selected>Comprehensive Analysis</option>
+                                                        <option value="detailed">Detailed Summary</option>
+                                                    </select>
+                                                </div>
+                                                <div class="select-item">
+                                                    <label for="numQuestions" class="select-label">Quiz Questions</label>
+                                                    <select class="custom-select" id="numQuestions" name="num_questions">
+                                                        <option value="5">5 Questions</option>
+                                                        <option value="10" selected>10 Questions</option>
+                                                        <option value="15">15 Questions</option>
+                                                        <option value="20">20 Questions</option>
+                                                    </select>
+                                                </div>
+                                                <div class="select-item">
+                                                    <label for="difficulty" class="select-label">Difficulty Level</label>
+                                                    <select class="custom-select" id="difficulty" name="difficulty">
+                                                        <option value="easy">Easy</option>
+                                                        <option value="medium" selected>Medium</option>
+                                                        <option value="hard">Hard</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="submit-container">
+                                <button type="submit" class="btn btn-gradient btn-lg submit-btn" id="submitBtn">
+                                    <span class="btn-text">
+                                        <i class="fas fa-magic me-2"></i>
+                                        Generate AI Analysis
+                                    </span>
+                                    <span class="btn-loader d-none">
+                                        <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                                        Processing...
+                                    </span>
+                                </button>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div id="progressContainer" class="progress-container d-none">
+                                <div class="progress-info">
+                                    <span class="progress-text" id="progressText">Initializing...</span>
+                                    <span class="progress-percent" id="progressPercent">0%</span>
+                                </div>
+                                <div class="custom-progress">
+                                    <div class="progress-bar-custom" id="progressBar"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Features Section -->
+    <section id="features" class="features-section py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">
+                    <i class="fas fa-stars text-gradient me-2"></i>
+                    Powerful Features
+                </h2>
+                <p class="section-subtitle">
+                    Everything you need for intelligent document analysis
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-text"></i>
+                        </div>
+                        <h5>Smart Summaries</h5>
+                        <p>Generate comprehensive summaries with key insights and main points automatically extracted.</p>
+                        <div class="feature-tags">
+                            <span class="tag">AI-Powered</span>
+                            <span class="tag">Fast</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h5>Interactive Quizzes</h5>
+                        <p>Create custom quizzes with multiple difficulty levels to test understanding and retention.</p>
+                        <div class="feature-tags">
+                            <span class="tag">Customizable</span>
+                            <span class="tag">Educational</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h5>Lightning Fast</h5>
+                        <p>Process documents in seconds with our optimized AI algorithms and cloud infrastructure.</p>
+                        <div class="feature-tags">
+                            <span class="tag">Optimized</span>
+                            <span class="tag">Reliable</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-import"></i>
+                        </div>
+                        <h5>Multi-Format Support</h5>
+                        <p>Support for PDF, DOCX, TXT, and Markdown files with intelligent text extraction.</p>
+                        <div class="feature-tags">
+                            <span class="tag">Versatile</span>
+                            <span class="tag">Compatible</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h5>Export Results</h5>
+                        <p>Download your summaries and quizzes in various formats for offline use and sharing.</p>
+                        <div class="feature-tags">
+                            <span class="tag">Portable</span>
+                            <span class="tag">Shareable</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h5>Secure & Private</h5>
+                        <p>Your documents are processed securely with no permanent storage of sensitive information.</p>
+                        <div class="feature-tags">
+                            <span class="tag">Secure</span>
+                            <span class="tag">Private</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="resultsSection" class="results-section py-5 d-none">
+        <div class="container">
+            <!-- Success Alert -->
+            <div class="success-alert" id="successAlert">
+                <div class="alert-content">
+                    <div class="alert-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="alert-text">
+                        <h5>Success!</h5>
+                        <p>Your document has been processed successfully.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Summary Results -->
+                <div class="col-lg-6" id="summaryResults">
+                    <div class="result-card">
+                        <div class="card-header">
+                            <div class="header-content">
+                                <div class="header-icon summary-icon">
+                                    <i class="fas fa-file-text"></i>
+                                </div>
+                                <div class="header-text">
+                                    <h5>Document Summary</h5>
+                                    <p>AI-generated comprehensive analysis</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="summary-content" id="summaryContent">
+                                <!-- Summary will be inserted here -->
+                            </div>
+                            <div class="summary-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value" id="summaryWords">0</div>
+                                    <div class="stat-label">Words</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="compressionRatio">0%</div>
+                                    <div class="stat-label">Compression</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="keyPointsCount">0</div>
+                                    <div class="stat-label">Key Points</div>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn btn-outline-primary" onclick="downloadSummary()">
+                                    <i class="fas fa-download me-2"></i>Download
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="copySummary()">
+                                    <i class="fas fa-copy me-2"></i>Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Results -->
+                <div class="col-lg-6" id="quizResults">
+                    <div class="result-card">
+                        <div class="card-header">
+                            <div class="header-content">
+                                <div class="header-icon quiz-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <div class="header-text">
+                                    <h5>Interactive Quiz</h5>
+                                    <p>Test your knowledge and understanding</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="quiz-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value" id="quizQuestionsCount">0</div>
+                                    <div class="stat-label">Questions</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="quizDifficulty">-</div>
+                                    <div class="stat-label">Difficulty</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="estimatedTime">0m</div>
+                                    <div class="stat-label">Est. Time</div>
+                                </div>
+                            </div>
+                            <div class="quiz-preview" id="quizPreview">
+                                <!-- Quiz questions will be inserted here -->
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn btn-gradient" onclick="startQuiz()">
+                                    <i class="fas fa-play me-2"></i>Start Quiz
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="downloadQuiz()">
+                                    <i class="fas fa-download me-2"></i>Download
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="text-center">
+                <p class="mb-0">
+                    © 2025 AI Document Agent. Powered by advanced AI technology.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.glass-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Initialize animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards and result cards
+        document.querySelectorAll('.feature-card, .result-card, .upload-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Add floating animation to hero cards
+        function animateHeroCards() {
+            const cards = document.querySelectorAll('.floating-card');
+            cards.forEach((card, index) => {
+                const delay = index * 200;
+                setTimeout(() => {
+                    card.style.animationDelay = `${delay}ms`;
+                    card.classList.add('floating');
+                }, delay);
+            });
+        }
+
+        // Start animations when page loads
+        window.addEventListener('load', () => {
+            animateHeroCards();
+            
+            // Add stagger effect to feature cards
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('fade-in-up');
+                }, index * 100);
+            });
+        });
+
+        // Global variables for results
+        let currentResults = null;
+        
+        // Copy to clipboard function
+        function copySummary() {
+            const summaryContent = document.getElementById('summaryContent').textContent;
+            navigator.clipboard.writeText(summaryContent).then(() => {
+                showNotification('Summary copied to clipboard!', 'success');
+            });
+        }
+
+        // Start quiz function
+        function startQuiz() {
+            showNotification('Interactive quiz mode coming soon!', 'info');
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type} notification`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 9999;
+                min-width: 300px;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : 'info'}-circle me-2"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
+
+        
+</body>
+</html>
