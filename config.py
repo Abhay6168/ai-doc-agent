@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # API Configuration
-GEMINI_API_KEY = "AIzaSyDJ1CWBwvNHukZnKdsgHkyBVrvDutskOZo"  # Replace with your valid Gemini API key
+GEMINI_API_KEY = ""  # Replace with your valid Gemini API key
 MODEL_NAME = "gemini-1.5-flash"
 
 # File paths
